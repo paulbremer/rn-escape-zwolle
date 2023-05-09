@@ -1,18 +1,35 @@
-import { StatusBar } from 'expo-status-bar';
-import { Platform, StyleSheet } from 'react-native';
-
-import EditScreenInfo from '../components/EditScreenInfo';
+import { Button, StyleSheet } from 'react-native';
+import { Stack, useNavigation, useSearchParams } from "expo-router";
 import { Text, View } from '../components/Themed';
+import useRegionStore from "../store/poi";
 
 export default function ModalScreen() {
+  const navigation = useNavigation();
+  const params = useSearchParams();
+  const regionsState = useRegionStore((state) => state);
+  const { id } = params;
+
+  const activePOI = regionsState.regions.find((region) => region.identifier === id);
+
+  if (!activePOI) return null;
+
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Modal</Text>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <EditScreenInfo path="app/modal.tsx" />
+      <Stack.Screen
+        options={{
+          title: activePOI.title,
+          headerBackTitleVisible: false,
+          headerBackTitle: 'Terug',
+          // headerLeft: () => (
+          //   <Button
+          //     onPress={() => navigation.goBack()}
+          //     title="Terug"
+          //   />
+          // ),
+        }}
+      />
 
-      {/* Use a light status bar on iOS to account for the black space above the modal */}
-      <StatusBar style={Platform.OS === 'ios' ? 'light' : 'auto'} />
+      <Text style={styles.title}>{activePOI.title}</Text>
     </View>
   );
 }
@@ -26,10 +43,5 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 20,
     fontWeight: 'bold',
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: '80%',
-  },
+  }
 });

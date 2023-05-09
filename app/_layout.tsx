@@ -18,6 +18,8 @@ export const unstable_settings = {
 export default function RootLayout() {
   const [loaded, error] = useFonts({
     SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
+    KulimParkRegular: require('../assets/fonts/KulimPark-Regular.ttf'),
+    KulimParkBold: require('../assets/fonts/KulimPark-Bold.ttf'),
     ...FontAwesome.font,
   });
 
@@ -43,7 +45,7 @@ function RootLayoutNav() {
       <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
         <Stack>
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-          <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
+          <Stack.Screen name="modal" options={{ presentation: 'card', headerShown: true }} />
         </Stack>
       </ThemeProvider>
     </>

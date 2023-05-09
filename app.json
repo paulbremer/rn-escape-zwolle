@@ -16,7 +16,18 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "buildNumber": "4",
+      "supportsTablet": true,
+      "infoPlist": {
+        "UIBackgroundModes": [
+          "location",
+          "fetch"
+        ],
+        "NSLocationWhenInUseUsageDescription": "text",
+        "NSLocationAlwaysAndWhenInUseUsageDescription": "text",
+        "NSLocationAlwaysUsageDescription": "text"
+      },
+      "bundleIdentifier": "nl.bremerdevelopment.escapezwolle"
     },
     "android": {
       "adaptiveIcon": {
@@ -27,6 +38,11 @@
     "web": {
       "bundler": "metro",
       "favicon": "./assets/images/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "84b90ff3-fcd0-496b-888f-dc51c157c750"
+      }
     }
   }
 }
