@@ -48,7 +48,7 @@ TaskManager.defineTask(LOCATION_TASK_NAME, ({ data, error }: any) => {
             }
             return regionState;
         });
-        useRegionStore.setState({ regions: newState });
+        useRegionStore.setState({ regions: newState.reverse() });
     } else if (eventType === Location.LocationGeofencingEventType.Exit) {
         if (region.identifier === activeRegion?.identifier) {
             console.log("You've left region:", region);
@@ -110,6 +110,7 @@ export default function MapScreen() {
         return (
             <View style={styles.container}>
                 <ActivityIndicator />
+                <Text style={styles.text}>Laden... {errorMsg}</Text>
             </View>
         );
 
@@ -148,7 +149,7 @@ export default function MapScreen() {
                                         }}
                                     >
                                         <Icon
-                                            style={styles.icon}
+                                            style={{ ...styles.icon, color: Colors[colorScheme ?? "light"].background}}
                                             name={unlocked || visited ? iconName : "map-marker-question"}
                                             size={24}
                                         />
@@ -162,7 +163,7 @@ export default function MapScreen() {
 
             {activeRegionState && (
                 <View style={styles.textContainer}>
-                    <Text style={styles.text}>🕵🏼 Je bent bij ${activeRegionState.title}!</Text>
+                    <Text style={{ ...styles.text, color: Colors[colorScheme ?? "light"].background }}>🕵🏼 Je bent bij {activeRegionState.title}!</Text>
                 </View>
             )}
         </View>
@@ -180,7 +181,7 @@ const styles = StyleSheet.create({
         height: "100%",
     },
     textContainer: {
-        backgroundColor: "rgba(255, 255, 255, 0.5)",
+        backgroundColor: "rgba(255, 255, 255, 0.75)",
         position: "absolute",
         width: "100%",
         bottom: 0,

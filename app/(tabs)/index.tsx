@@ -1,12 +1,14 @@
-import { FlatList, Pressable, StyleSheet } from "react-native";
+import { Alert, FlatList, Pressable, StyleSheet, useColorScheme } from "react-native";
 import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 import { Link } from "expo-router";
 import { Text, View } from "../../components/Themed";
 import useRegionStore from "../../store/poi";
 import { regionType } from "../../types/regions";
+import Colors from '../../constants/Colors';
 
 export default function HomeScreen() {
     const regionsState = useRegionStore((state) => state);
+    const colorScheme = useColorScheme();
 
     const ClickableItem = ({ identifier, latitude, longitude, visited, iconName, title, unlocked }: regionType) => {
         return (
@@ -18,7 +20,7 @@ export default function HomeScreen() {
                 <Pressable disabled={!unlocked && !visited}>
                     {({ pressed }) => (
                         <View style={styles.itemContainer}>
-                            <Icon style={styles.itemIcon} name={iconName} />
+                            <Icon style={styles.itemIcon} color={Colors[colorScheme ?? "light"].tint} name={iconName} />
                             <Text style={styles.itemTitle}>{title}</Text>
                         </View>
                     )}
@@ -27,13 +29,15 @@ export default function HomeScreen() {
         );
     };
 
-    const NonClickableItem = ({ title, iconName, visited }: regionType) => {
+    const NonClickableItem = ({ title, iconName, visited, unlocked }: regionType) => {
         return (
-            <View style={styles.itemContainer}>
-                <Icon style={styles.itemIcon} name={visited ? iconName : 'map-marker-question'} />
-                <Text style={styles.itemTitle}>{visited ? title : '...'}</Text>
-                <Icon style={styles.itemIconRight} name={'lock-alert-outline'} />
-            </View>
+            <Pressable onPress={() => Alert.alert('🕵🏼', !unlocked ? '\n Los de vorige puzzel op om deze locatie te ontgrendelen' : 'Ga naar deze locatie om de volgende opdracht te ontvangen')}>
+                <View style={styles.itemContainer}>
+                    <Icon style={styles.itemIcon} color={Colors[colorScheme ?? "light"].text} name={visited ? iconName : 'map-marker-question'} />
+                    <Text style={styles.itemTitle}>{visited ? title : '...'}</Text>
+                    <Icon style={styles.itemIconRight} color={Colors[colorScheme ?? "light"].text} name={'lock-alert-outline'} />
+                </View>
+            </Pressable>
         );
     };
 
