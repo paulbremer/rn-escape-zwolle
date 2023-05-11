@@ -8,10 +8,14 @@ import { regionType } from "../../types/regions";
 export default function HomeScreen() {
     const regionsState = useRegionStore((state) => state);
 
-    const VisitedItem = ({ identifier, latitude, longitude, visited, iconName, title }: regionType) => {
+    const ClickableItem = ({ identifier, latitude, longitude, visited, iconName, title, unlocked }: regionType) => {
         return (
-            <Link href={{ pathname: "/modal", params: { id: identifier } }} key={`${latitude},${longitude}`} asChild>
-                <Pressable disabled={!visited}>
+            <Link
+                href={{ pathname: `poi/${identifier}`, params: { id: identifier } }}
+                key={`${latitude},${longitude}`}
+                asChild
+            >
+                <Pressable disabled={!unlocked && !visited}>
                     {({ pressed }) => (
                         <View style={styles.itemContainer}>
                             <Icon style={styles.itemIcon} name={iconName} />
@@ -23,11 +27,12 @@ export default function HomeScreen() {
         );
     };
 
-    const NonVisitedItem = (region: regionType) => {
+    const NonClickableItem = ({ title, iconName, visited }: regionType) => {
         return (
             <View style={styles.itemContainer}>
-                <Icon style={styles.itemIcon} name="map-marker-question" />
-                <Text style={styles.itemTitle}>...</Text>
+                <Icon style={styles.itemIcon} name={visited ? iconName : 'map-marker-question'} />
+                <Text style={styles.itemTitle}>{visited ? title : '...'}</Text>
+                <Icon style={styles.itemIconRight} name={'lock-alert-outline'} />
             </View>
         );
     };
@@ -35,8 +40,11 @@ export default function HomeScreen() {
     return (
         <View style={styles.container}>
             <FlatList
-                data={regionsState.regions}
-                renderItem={({ item }) => (item.visited ? <VisitedItem {...item} /> : <NonVisitedItem {...item} />)}
+                data={regionsState.regions.reverse()}
+                renderItem={({ item }) =>
+                    item.unlocked && item.visited ? <ClickableItem {...item} /> : <NonClickableItem {...item} />
+                }
+                inverted={true}
                 style={styles.list}
             />
         </View>
@@ -55,6 +63,7 @@ const styles = StyleSheet.create({
     itemContainer: {
         flexDirection: "row",
         alignItems: "center",
+        justifyContent: 'space-between',
         padding: 24,
         borderBottomWidth: 1,
         borderBottomColor: "rgb(245,245,245)",
@@ -63,9 +72,13 @@ const styles = StyleSheet.create({
         fontSize: 28,
         marginRight: 24,
     },
+    itemIconRight: {
+        fontSize: 28,
+    },
     itemTitle: {
         // fontFamily: 'KulimParkBold',
         fontSize: 16,
         fontWeight: "600",
+        flexGrow: 2
     },
 });

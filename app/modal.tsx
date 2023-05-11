@@ -1,6 +1,7 @@
 import { Button, StyleSheet } from 'react-native';
 import { Stack, useNavigation, useSearchParams } from "expo-router";
 import { Text, View } from '../components/Themed';
+import Picker from '../components/Picker/index';
 import useRegionStore from "../store/poi";
 
 export default function ModalScreen() {

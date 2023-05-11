@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { AppState, Dimensions, Pressable, StyleSheet, useColorScheme } from "react-native";
+import { AppState, ActivityIndicator, Dimensions, Pressable, StyleSheet, useColorScheme } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import { Accuracy, LocationObject } from "expo-location";
 import { Link } from "expo-router";
@@ -106,7 +106,12 @@ export default function MapScreen() {
         };
     }, []);
 
-    if (!location) return null;
+    if (!location)
+        return (
+            <View style={styles.container}>
+                <ActivityIndicator />
+            </View>
+        );
 
     return (
         <View style={styles.container}>
@@ -124,26 +129,27 @@ export default function MapScreen() {
                     longitudeDelta: LONGITUDE_DELTA,
                 }}
             >
-                {regionState.regions.map(({ identifier, latitude, longitude, iconName, visited }) => {
+                {regionState.regions.map(({ identifier, latitude, longitude, iconName, unlocked, visited }) => {
                     return (
                         <Link
-                            href={{ pathname: "/modal", params: { id: identifier } }}
+                            href={{ pathname: `poi/${identifier}`, params: { id: identifier } }}
                             key={`${latitude},${longitude}`}
                             asChild
                         >
-                            <Pressable disabled={!visited}>
+                            <Pressable disabled={!unlocked || !visited}>
                                 {({ pressed }) => (
                                     <Marker
                                         coordinate={{ latitude, longitude }}
                                         style={{
                                             ...styles.iconContainer,
-                                            backgroundColor: visited ? Colors[colorScheme ?? "light"].tint : '#8f8f8f',
+                                            backgroundColor:
+                                                unlocked && visited ? Colors[colorScheme ?? "light"].tint : "#8f8f8f",
                                             opacity: pressed ? 0.5 : 1,
                                         }}
                                     >
                                         <Icon
                                             style={styles.icon}
-                                            name={visited ? iconName : "map-marker-question"}
+                                            name={unlocked || visited ? iconName : "map-marker-question"}
                                             size={24}
                                         />
                                     </Marker>

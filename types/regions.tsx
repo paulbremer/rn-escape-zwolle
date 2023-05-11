@@ -6,4 +6,6 @@ export interface regionType extends Location.LocationRegion {
     title: string;
     iconName: React.ComponentProps<typeof MaterialCommunityIcons>['name'];
     visited: boolean;
+    unlocked: boolean;
+    lockCode?: number;
 }

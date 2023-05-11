@@ -23,15 +23,15 @@ export default function TabLayout() {
             <Tabs.Screen
                 name="index"
                 options={{
-                    title: "Home",
-                    tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />,
+                    title: "Locations",
+                    tabBarIcon: ({ color }) => <TabBarIcon name="map-marker" color={color} />,
                 }}
             />
             <Tabs.Screen
                 name="map"
                 options={{
                     title: "Map",
-                    tabBarIcon: ({ color }) => <TabBarIcon name="map" color={color} />,
+                    tabBarIcon: ({ color }) => <TabBarIcon name="map-o" color={color} />,
                     headerShown: false
                 }}
             />
