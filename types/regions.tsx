@@ -8,4 +8,5 @@ export interface regionType extends Location.LocationRegion {
     visited: boolean;
     unlocked: boolean;
     lockCode?: number;
+    nextPOI?: string;
 }

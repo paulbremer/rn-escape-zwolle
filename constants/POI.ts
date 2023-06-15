@@ -7,7 +7,9 @@ const Regions = [
         longitude: 6.091563646609616,
         radius: 20,
         visited: true,
-        unlocked: true
+        unlocked: true,
+        lockCode: 2567,
+        nextPOI: "SASSENPOORT",
     },
     {
         identifier: "SASSENPOORT",
@@ -18,17 +20,19 @@ const Regions = [
         radius: 20,
         visited: false,
         unlocked: false,
-        lockCode: 2567
+        lockCode: 2567,
+        nextPOI: "WAALSE_KERK",
     },
     {
-        identifier: "Waalse Kerk",
+        identifier: "WAALSE_KERK",
         title: "Waalse Kerk",
         iconName: "church",
         latitude: 52.510769342180154,
         longitude: 6.09573600415644,
         radius: 20,
         visited: false,
-        unlocked: false
+        unlocked: false,
+        nextPOI: "STADSMUUR",
     },
     {
         identifier: "STADSMUUR",
@@ -38,7 +42,8 @@ const Regions = [
         longitude: 6.098813256005655,
         radius: 20,
         visited: false,
-        unlocked: false
+        unlocked: false,
+        nextPOI: "PELSERTOREN",
     },
     {
         identifier: "PELSERTOREN",
@@ -48,7 +53,8 @@ const Regions = [
         longitude: 6.097538845039396,
         radius: 20,
         visited: false,
-        unlocked: false
+        unlocked: false,
+        nextPOI: "VAN_DER_VELDE_BOEKEN",
     },
     {
         identifier: "VAN_DER_VELDE_BOEKEN",
@@ -58,7 +64,7 @@ const Regions = [
         longitude: 6.095443500131366,
         radius: 20,
         visited: false,
-        unlocked: false
+        unlocked: false,
     }
 ]
 

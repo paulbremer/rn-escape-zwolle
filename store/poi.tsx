@@ -6,8 +6,14 @@ interface RegionsState {
     regions: regionType[];
 }
 
-const useRegionStore = create<RegionsState>()(() => ({
+const initialState = {
+    regions: [],
+}
+
+const useRegionStore = create<RegionsState>()((set) => ({
+    ...initialState,
     regions: [...Regions],
+    updateRegion: () => set({ regions:  [] }),
 }));
 
 export default useRegionStore;
