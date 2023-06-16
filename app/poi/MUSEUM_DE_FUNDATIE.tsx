@@ -28,8 +28,11 @@ export default function Details() {
 
     const onHandleUnlockRegion = () => {
         // UNLOCK NEXT REGION
-        console.log(activePOI?.nextPOI);
-        // useRegionStore.setState({ paw: false })
+        const regions = regionsState.regions;
+        const newRegionState = regions.map(region =>
+            region.identifier === activePOI?.nextPOI ? { ...region, unlocked: true, visited: true } : region
+            );
+        useRegionStore.setState({ regions: newRegionState })
         router.back();
     };
 

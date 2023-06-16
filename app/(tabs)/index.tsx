@@ -8,6 +8,7 @@ import Colors from '../../constants/Colors';
 
 export default function HomeScreen() {
     const regionsState = useRegionStore((state) => state);
+    const { regions } = regionsState;
     const colorScheme = useColorScheme();
 
     const ClickableItem = ({ identifier, latitude, longitude, visited, iconName, title, unlocked }: regionType) => {
@@ -44,11 +45,11 @@ export default function HomeScreen() {
     return (
         <View style={styles.container}>
             <FlatList
-                data={regionsState.regions.reverse()}
+                data={regions}
                 renderItem={({ item }) =>
                     item.unlocked && item.visited ? <ClickableItem {...item} /> : <NonClickableItem {...item} />
                 }
-                inverted={true}
+                // inverted={true}
                 style={styles.list}
             />
         </View>

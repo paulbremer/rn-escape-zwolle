@@ -65,7 +65,7 @@ const Regions = [
         radius: 20,
         visited: false,
         unlocked: false,
-    }
+    },
 ]
 
 export default Regions;
