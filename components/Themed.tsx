@@ -2,17 +2,20 @@
  * Learn more about Light and Dark modes:
  * https://docs.expo.io/guides/color-schemes/
  */
-
+import { useContext } from 'react';
 import { Text as DefaultText, useColorScheme, View as DefaultView } from 'react-native';
-
+import ThemeContext from '../ThemeContext';
 import Colors from '../constants/Colors';
 
 export function useThemeColor(
   props: { light?: string; dark?: string },
   colorName: keyof typeof Colors.light & keyof typeof Colors.dark
 ) {
-  const theme = useColorScheme() ?? 'light';
+  const { theme, setTheme } = useContext(ThemeContext);
+  // const theme = useColorScheme() ?? 'light';
   const colorFromProps = props[theme];
+
+  console.log('😀 ', theme)
 
   if (colorFromProps) {
     return colorFromProps;
@@ -33,7 +36,7 @@ export function Text(props: TextProps) {
   const { style, lightColor, darkColor, ...otherProps } = props;
   const color = useThemeColor({ light: lightColor, dark: darkColor }, 'text');
 
-  return <DefaultText style={[{ color, fontFamily: 'KulimParkRegular' }, style]} {...otherProps} />;
+  return <DefaultText style={[{ color, fontFamily: 'KulimParkRegular', fontSize: 16 }, style]} {...otherProps} />;
 }
 
 export function View(props: ViewProps) {
