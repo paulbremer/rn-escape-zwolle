@@ -4,6 +4,7 @@ import { Text, View } from "../../components/Themed";
 import useRegionStore from "../../store/poi";
 import ThemeContext from "../../ThemeContext";
 import Colors from "../../constants/Colors";
+import { expo } from "../../app.json";
 
 export default function SettingsScreen() {
     const regionState = useRegionStore((state) => state);
@@ -57,7 +58,7 @@ export default function SettingsScreen() {
                 </View>
 
                 <View style={styles.versionNumberContainer}>
-                    <Text style={styles.versionNumber}>v0.0.3</Text>
+                    <Text style={styles.versionNumber}>v{expo.version}.{expo.ios.buildNumber}</Text>
                 </View>
             </View>
         </ScrollView>

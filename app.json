@@ -2,7 +2,7 @@
   "expo": {
     "name": "rn-escape-zwolle",
     "slug": "rn-escape-zwolle",
-    "version": "1.0.0",
+    "version": "1.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "myapp",
@@ -16,7 +16,7 @@
       "**/*"
     ],
     "ios": {
-      "buildNumber": "4",
+      "buildNumber": "6",
       "supportsTablet": true,
       "infoPlist": {
         "UIBackgroundModes": [
