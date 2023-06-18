@@ -59,7 +59,7 @@ TaskManager.defineTask(LOCATION_TASK_NAME, ({ data, error }: any) => {
 
 export default function MapScreen() {
     const [location, setLocation] = useState<LocationObject>();
-    const [errorMsg, setErrorMsg] = useState("");
+    const [errorMsg, setErrorMsg] = useState("Laden...");
     const appState = useRef(AppState.currentState);
     const mapRef = useRef<null>(null);
     const activeRegionState = useActiveRegionStore((state) => state.activeRegion);
@@ -110,7 +110,7 @@ export default function MapScreen() {
         return (
             <View style={styles.container}>
                 <ActivityIndicator />
-                <Text style={styles.text}>Laden... {errorMsg}</Text>
+                <Text style={styles.text}>{errorMsg}</Text>
             </View>
         );
 
@@ -163,7 +163,7 @@ export default function MapScreen() {
 
             {activeRegionState && (
                 <View style={styles.textContainer}>
-                    <Text style={{ ...styles.text, color: Colors[colorScheme ?? "light"].background }}>🕵🏼 Je bent bij {activeRegionState.title}!</Text>
+                    <Text style={{ ...styles.text, color: Colors[colorScheme ?? "light"].text }}>🕵🏼 Je bent bij {activeRegionState.title}!</Text>
                 </View>
             )}
         </View>
