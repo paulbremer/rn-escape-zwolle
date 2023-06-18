@@ -1,3 +1,4 @@
+import { useContext } from 'react';
 import { Alert, FlatList, Pressable, StyleSheet, useColorScheme } from "react-native";
 import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 import { Link } from "expo-router";
@@ -5,11 +6,13 @@ import { Text, View } from "../../components/Themed";
 import useRegionStore from "../../store/poi";
 import { regionType } from "../../types/regions";
 import Colors from '../../constants/Colors';
+import ThemeContext from "../../ThemeContext";
 
 export default function HomeScreen() {
     const regionsState = useRegionStore((state) => state);
     const { regions } = regionsState;
     const colorScheme = useColorScheme();
+    const { theme, setTheme } = useContext(ThemeContext);
 
     const ClickableItem = ({ identifier, latitude, longitude, visited, iconName, title, unlocked }: regionType) => {
         return (
@@ -20,7 +23,7 @@ export default function HomeScreen() {
             >
                 <Pressable disabled={!unlocked && !visited}>
                     {({ pressed }) => (
-                        <View style={styles.itemContainer}>
+                        <View style={{ ...styles.itemContainer, backgroundColor: Colors[theme].backgroundLight }}>
                             <Icon style={styles.itemIcon} color={Colors[colorScheme ?? "light"].tint} name={iconName} />
                             <Text style={styles.itemTitle}>{title}</Text>
                         </View>
@@ -33,7 +36,7 @@ export default function HomeScreen() {
     const NonClickableItem = ({ title, iconName, visited, unlocked }: regionType) => {
         return (
             <Pressable onPress={() => Alert.alert('🕵🏼', !unlocked ? '\n Los de vorige puzzel op om deze locatie te ontgrendelen' : 'Ga naar deze locatie om de volgende opdracht te ontvangen')}>
-                <View style={styles.itemContainer}>
+                <View style={{ ...styles.itemContainer, backgroundColor: Colors[theme].backgroundLight }}>
                     <Icon style={styles.itemIcon} color={Colors[colorScheme ?? "light"].text} name={visited ? iconName : 'map-marker-question'} />
                     <Text style={styles.itemTitle}>{visited ? title : '...'}</Text>
                     <Icon style={styles.itemIconRight} color={Colors[colorScheme ?? "light"].text} name={'lock-alert-outline'} />
@@ -49,7 +52,6 @@ export default function HomeScreen() {
                 renderItem={({ item }) =>
                     item.unlocked && item.visited ? <ClickableItem {...item} /> : <NonClickableItem {...item} />
                 }
-                // inverted={true}
                 style={styles.list}
             />
         </View>

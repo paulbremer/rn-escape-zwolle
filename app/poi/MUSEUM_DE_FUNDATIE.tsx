@@ -1,4 +1,4 @@
-import { useRef, useMemo, useCallback } from "react";
+import { useRef, useMemo, useContext, useCallback } from "react";
 import { Pressable, StyleSheet, useColorScheme } from "react-native";
 import { useRouter, useSearchParams, Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
@@ -8,8 +8,9 @@ import { ImageHeaderScrollView, TriggeringView } from "react-native-image-header
 import { View, Text } from "../../components/Themed";
 import CustomPicker from "../../components/Picker/index";
 import useRegionStore from "../../store/poi";
-import headerStyles from "./styles";
 import Colors from "../../constants/Colors";
+import ThemeContext from "../../ThemeContext";
+import headerStyles from "./styles";
 
 const MIN_HEIGHT = 120;
 
@@ -18,6 +19,7 @@ export default function Details() {
     const params = useSearchParams();
     const router = useRouter();
     const colorScheme = useColorScheme();
+    const { theme, setTheme } = useContext(ThemeContext);
     const { id } = params;
 
     const activePOI = regionsState.regions.find((region) => region.identifier === id);
@@ -41,6 +43,11 @@ export default function Details() {
 
     const renderBackdrop = useCallback(
         (props: any) => <BottomSheetBackdrop {...props} disappearsOnIndex={0} appearsOnIndex={1} />,
+        []
+    );
+
+    const renderBackground = useCallback(
+        () => <View />,
         []
     );
 
@@ -73,7 +80,7 @@ export default function Details() {
                 <TriggeringView
                     style={{
                         ...headerStyles.contentContainer,
-                        backgroundColor: Colors[colorScheme ?? "light"].background,
+                        backgroundColor: Colors[theme].background,
                     }}
                 >
                     <Text style={headerStyles.paragraph}>
@@ -115,6 +122,7 @@ export default function Details() {
                 index={1}
                 snapPoints={snapPoints}
                 backdropComponent={renderBackdrop}
+                backgroundComponent={renderBackground}
             >
                 <View style={styles.contentContainer}>
                     <Text style={styles.text}>🎉 Yes je hebt de code gevonden!</Text>

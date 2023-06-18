@@ -2,6 +2,7 @@ const Regions = [
     {
         identifier: "MUSEUM_DE_FUNDATIE",
         title: "Museum de Fundatie",
+        image: require("../assets/images/poi/museum_de_fundatie.webp"),
         iconName: "bank",
         latitude: 52.51026693512727,
         longitude: 6.091563646609616,
@@ -14,6 +15,7 @@ const Regions = [
     {
         identifier: "SASSENPOORT",
         title: "Sassenpoort",
+        image: require("../assets/images/poi/sassenpoort.webp"),
         iconName: "castle",
         latitude: 52.50994767972256,
         longitude: 6.09548373323751,
@@ -26,6 +28,7 @@ const Regions = [
     {
         identifier: "WAALSE_KERK",
         title: "Waalse Kerk",
+        image: require("../assets/images/poi/museum_de_fundatie.webp"),
         iconName: "church",
         latitude: 52.510769342180154,
         longitude: 6.09573600415644,
@@ -37,6 +40,7 @@ const Regions = [
     {
         identifier: "STADSMUUR",
         title: "Stadsmuur",
+        image: require("../assets/images/poi/sassenpoort.webp"),
         iconName: "wall",
         latitude: 52.51374434848922,
         longitude: 6.098813256005655,
@@ -48,6 +52,7 @@ const Regions = [
     {
         identifier: "PELSERTOREN",
         title: "De Pelsertoren",
+        image: require("../assets/images/poi/museum_de_fundatie.webp"),
         iconName: "map-marker-check",
         latitude: 52.51415017545183,
         longitude: 6.097538845039396,
@@ -59,6 +64,7 @@ const Regions = [
     {
         identifier: "VAN_DER_VELDE_BOEKEN",
         title: "Van der Velde Boeken",
+        image: require("../assets/images/poi/sassenpoort.webp"),
         iconName: "map-marker-check",
         latitude: 52.51378215130589,
         longitude: 6.095443500131366,
@@ -66,6 +72,6 @@ const Regions = [
         visited: false,
         unlocked: false,
     },
-]
+];
 
 export default Regions;

@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { Pressable, StyleSheet, useColorScheme } from "react-native";
 import { Text, View } from "../Themed";
 import { Picker } from "@react-native-picker/picker";
 import Colors from "../../constants/Colors";
+import ThemeContext from "../../ThemeContext";
 
 const numberArray = [...Array(10)].map((_, index) => index);
 
@@ -25,7 +26,7 @@ const CustomPicker = ({ lockCode, onSuccess }: CustomPickerProps) => {
         2: 0,
         3: 0,
     });
-    const [selectedNumber, setSelectedNumber] = useState<string>("0000");
+    const { theme, setTheme } = useContext(ThemeContext);
     const colorScheme = useColorScheme();
 
     const getSelectedNumber = (obj: SelectedNumbersProps) => Object.values(obj).reduce((a, b) => +`${a}${b}`);
@@ -33,7 +34,6 @@ const CustomPicker = ({ lockCode, onSuccess }: CustomPickerProps) => {
     useEffect(() => {
         if (getSelectedNumber(selectedNumbers) === lockCode) {
             onSuccess();
-            setSelectedNumber(getSelectedNumber(selectedNumbers));
         }
     }, [selectedNumbers]);
 
@@ -49,6 +49,7 @@ const CustomPicker = ({ lockCode, onSuccess }: CustomPickerProps) => {
                                 setSelectedNumbers({ ...selectedNumbers, [index]: itemValue })
                             }
                             style={styles.picker}
+                            itemStyle={{ color: Colors[theme].text }}
                         >
                             {numberArray.map((number) => (
                                 <Picker.Item key={number} label={"" + number} value={number} />
@@ -57,19 +58,6 @@ const CustomPicker = ({ lockCode, onSuccess }: CustomPickerProps) => {
                     );
                 })}
             </View>
-
-            {/* {getSelectedNumber(selectedNumbers) === lockCode && (
-                <>
-                    <Text style={styles.text}>🎉 Yes je hebt de code gevonden!</Text>
-
-                    <Pressable
-                        style={{ ...styles.button, backgroundColor: Colors[colorScheme ?? "light"].tint }}
-                        onPress={onSuccess}
-                    >
-                        <Text style={styles.buttonText}>Goed zo</Text>
-                    </Pressable>
-                </>
-            )} */}
         </View>
     );
 };
@@ -84,6 +72,7 @@ const styles = StyleSheet.create({
     },
     picker: {
         flexBasis: "22%",
+        color: 'red'
     },
 });
 

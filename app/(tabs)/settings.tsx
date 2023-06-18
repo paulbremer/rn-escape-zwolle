@@ -39,20 +39,20 @@ export default function SettingsScreen() {
     };
 
     return (
-        <ScrollView style={{ ...styles.root, backgroundColor: Colors[theme].backgroundLight }}>
-            <View style={{ ...styles.container, backgroundColor: Colors[theme].backgroundLight }}>
+        <ScrollView style={{ ...styles.root, backgroundColor: Colors[theme].background }}>
+            <View style={{ ...styles.container, backgroundColor: Colors[theme].background }}>
                 <View style={styles.listContainer}>
-                    <View style={{ ...styles.listSwitchItem, backgroundColor: Colors[theme].background }}>
+                    <View style={{ ...styles.listSwitchItem, backgroundColor: Colors[theme].backgroundLight }}>
                         <Text>Dark Mode</Text>
                         <Switch onValueChange={toggleSwitch} value={isEnabled} />
                     </View>
                 </View>
 
                 <View style={styles.listContainer}>
-                    <Pressable onPress={unlockAllData} style={{ ...styles.listItem, backgroundColor: Colors[theme].background }}>
+                    <Pressable onPress={unlockAllData} style={{ ...styles.listItem, backgroundColor: Colors[theme].backgroundLight }}>
                         <Text>Unlock all regions</Text>
                     </Pressable>
-                    <Pressable onPress={resetAllData} style={{ ...styles.listItem, backgroundColor: Colors[theme].background, borderBottomWidth: 0 }}>
+                    <Pressable onPress={resetAllData} style={{ ...styles.listItem, backgroundColor: Colors[theme].backgroundLight, borderBottomWidth: 0 }}>
                         <Text>Reset all data</Text>
                     </Pressable>
                 </View>

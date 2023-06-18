@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useColorScheme } from "react-native";
+import { StatusBar } from "expo-status-bar";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { DarkTheme, DefaultTheme, ThemeProvider } from "@react-navigation/native";
 import { useFonts } from "expo-font";
@@ -48,6 +49,7 @@ function RootLayoutNav() {
             <ThemeContext.Provider value={{ theme: theme, setTheme }}>
                 <ThemeProvider value={theme === "dark" ? DarkTheme : DefaultTheme}>
                     <GestureHandlerRootView style={{ flex: 1 }}>
+                        <StatusBar style={theme === "dark" ? "light" : "dark"} />
                         <Stack>
                             <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
                             <Stack.Screen name="modal" options={{ presentation: "card", headerShown: true }} />
